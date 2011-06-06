@@ -6,35 +6,34 @@ clc; clear all; close all;
 pas = 0.1;
 N = 1/pas;
 
-Nbr_Iterations = 100
+N = 100;
 
-X0 = [1,pas,N]
-mu = ones(1,4*N)
-x = ones(1,4*N*N*100);
+%% Q2 Valeurs de mu et x0 fixes
+%1) mu = 0.4, x0 = 0.7
+x = ones(1,N);
+mu = 0.4;
+X0 = 0.7;
 
-X0(1) = 0;
-mu(1) = 0;
+x = steLogist(X0,mu,N);
+x(N)
 
-    
+%2) mu = 1.3 et x0 = 0.3
+x2 = ones(1,N);
+mu2 = 1.3;
+X02 = 0.3;
 
-%% 1 etude des comportements limites
+x2 = steLogist(X02,mu2,N);
+x2(N)
 
-for i = 1:pas:4*N     %Variations de mu
-    mu(i+1) = mu(i)+pas;
-    for j = 1:pas:N   %Variations de X0
-        X0(j+1) = X0(j)+pas;
-        
-        x(1) = mu(i)*X0(j)*(1-X0(j));
-        
-        for n = 1:1:Nbr_Iterations        % Suite logistique
-            x(n+1) = mu(i)*x(n)*(1-x(n));
-            
-        end
-        
-    end
-    
-end
-
-
-plot(x)
+% Tracage des courbes:
+plot(x,'-r')
+hold on
+plot(x2,'-k')
 grid on
+legend('Mu = 0.4 X0 = 0.7','Mu = 1.3 X0 = 0.3')
+title('Population des bacteries')
+
+% La population se stabilise donc pour ces valeurs d'entree. Le modele
+% permet donc de prevoir ce comportement.
+
+
